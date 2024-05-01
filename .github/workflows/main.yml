@@ -5,10 +5,8 @@ on:
     branches: [ main ]
 
 env:
-  # SOLUTION_FILE_PATH: ./AFKJ-Cheeto.sln
-  PROJECT_FILE_PATH: ./cheat/AFKJ-Cheeto.vcxproj
+  SOLUTION_FILE_PATH: ./AFKJ-Cheeto.sln
   BUILD_CONFIGURATION: Release
-  PLATFORM: x64
 
 permissions:
   contents: read
@@ -27,11 +25,11 @@ jobs:
 
     - name: Build
       run: |
-        msbuild ${{ env.PROJECT_FILE_PATH }} /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.PLATFORM }}  
+        msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         name: build-artifact
-        path: ./cheat/bin/Release-x64/*
+        path: ./bin/Release-x64/*
         if-no-files-found: error
