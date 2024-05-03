@@ -9,23 +9,23 @@
 
 using namespace Cheat::Features;
 
-static void NetworkManager_OnUpdate_Hook(void* __this, float deltaTime, MethodInfo* method);
+static void GameMain_Update_Hook(void* __this, MethodInfo* method);
 
 void init_cheat()
 {
 #define INIT_FEATURE(feature) feature::GetInstance()
-	// INIT_FEATURE(Debug);
+	INIT_FEATURE(Debug);
 	INIT_FEATURE(LuaEditor);
 #undef INIT_FEATURE
 
-	HookManager::install(app::NetworkManager_OnUpdate, NetworkManager_OnUpdate_Hook);
+	HookManager::install(app::GameMain_Update, GameMain_Update_Hook);
 }
 
-void NetworkManager_OnUpdate_Hook(void* __this, float deltaTime, MethodInfo* method)
+void GameMain_Update_Hook(void* __this, MethodInfo* method)
 {
 	SAFE_BEGIN();
 	events::GameUpdateEvent();
 	HotkeyManager::GetInstance().CheckForKeyPress();
 	SAFE_EEND();
-	CALL_ORIGIN(NetworkManager_OnUpdate_Hook, __this, deltaTime, method);
+	CALL_ORIGIN(GameMain_Update_Hook, __this, method);
 }

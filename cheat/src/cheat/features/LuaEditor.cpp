@@ -42,29 +42,13 @@ namespace Cheat::Features
 			xlua = GetModuleHandleW(L"igame.dll");
 
 		luaL_loadbufferx_p = (luaL_loadbufferx_t)GetProcAddress(xlua, "luaL_loadbufferx");
-		if (luaL_loadbufferx_p == nullptr)
-			luaL_loadbufferx_p = (luaL_loadbufferx_t)app::LuaDLL_tolua_error;
 		tolua_error_p = (tolua_error_t)GetProcAddress(xlua, "tolua_error");
-		if (tolua_error_p == nullptr)
-			tolua_error_p = (tolua_error_t)app::LuaDLL_tolua_error;
 		lua_pcall_p = (lua_pcall_t)GetProcAddress(xlua, "lua_pcall");
-		if (lua_pcall_p == nullptr)
-			lua_pcall_p = (lua_pcall_t)app::LuaDLL_lua_pcall;
 		lua_tointegerx_p = (lua_tointegerx_t)GetProcAddress(xlua, "lua_tointegerx");
-		if (lua_tointegerx_p == nullptr)
-			lua_tointegerx_p = (lua_tointegerx_t)app::LuaDLL_lua_tointegerx;
 		lua_tonumberx_p = (lua_tonumberx_t)GetProcAddress(xlua, "lua_tonumberx");
-		if (lua_tonumberx_p == nullptr)
-			lua_tonumberx_p = (lua_tonumberx_t)app::LuaDLL_lua_tonumberx;
 		lua_toboolean_p = (lua_toboolean_t)GetProcAddress(xlua, "tolua_toboolean");
-		if (lua_toboolean_p == nullptr)
-			lua_toboolean_p = (lua_toboolean_t)app::LuaDLL_tolua_toboolean;
 		lua_type_p = (lua_type_t)GetProcAddress(xlua, "lua_type");
-		if (lua_type_p == nullptr)
-			lua_type_p = (lua_type_t)app::LuaDLL_lua_type;
 		lua_tolstring_p = (lua_tolstring_t)GetProcAddress(xlua, "lua_tolstring");
-		if (lua_tolstring_p == nullptr)
-			lua_tolstring_p = (lua_tolstring_t)app::LuaDLL_lua_tolstring;
 
 		if (m_State == nullptr)
 			m_State = luaL_newstate();
@@ -201,6 +185,20 @@ namespace Cheat::Features
 			return;
 		}
 
+		// Alternative way of getting the lua state pointer from the game
+		//auto pLuaState = app::LuaManager_get_Instance(nullptr)->fields._.loop->fields.luaState->fields._.L;
+		//if (pLuaState == nullptr)
+		//{
+		//	LOG_ERROR("Lua state is null");
+		//	return;
+		//}
+		//m_State = (lua_State*)pLuaState;
+
+		// Alternative way of calling luaL_loadbufferx using il2cpp calls
+		//auto encoding = app::Encoding_get_UTF8(nullptr);
+		//auto buff = app::Encoding_GetBytes_2(encoding, string_to_il2cppi(code), nullptr);
+
+		//if (app::LuaDLL_luaL_loadbufferx(m_State, buff, code.size(), string_to_il2cppi("compiled"), nullptr, nullptr) != LUA_OK)
 		if (luaL_loadbufferx_p(m_State, code.c_str(), code.size(), "LuaScript", NULL) != LUA_OK)
 		{
 			const char* error_msg = lua_tolstring_p(m_State, -1, NULL);
@@ -209,6 +207,8 @@ namespace Cheat::Features
 			return;
 		}
 
+		// Alternative way of calling lua_pcall using il2cpp calls
+		//if (app::LuaDLL_lua_pcall(m_State, 0, LUA_MULTRET, 0, nullptr) != LUA_OK)
 		if (lua_pcall_p(m_State, 0, LUA_MULTRET, 0) != LUA_OK)
 		{
 			const char* error_msg = lua_tolstring_p(m_State, -1, NULL);

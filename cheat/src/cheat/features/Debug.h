@@ -17,5 +17,11 @@ namespace Cheat::Features
 		static int32_t LuaDLL_luaL_loadbuffer_Hook(void* luaState, app::Byte__Array* buff, int32_t size, app::String* name, MethodInfo* method);
 		static int32_t LuaDLL_luaL_loadstring_Hook(void* luaState, app::String* chunk, MethodInfo* method);
 		static bool LuaDLL_luaL_dostring_Hook(void* luaState, app::String* chunk, MethodInfo* method);
+
+		static void LuaState_DoString_Hook(app::LuaState* __this, app::String* chunk, app::String* chunkName, MethodInfo* method);
+		static app::Object* LuaState_DoString_1_Hook(app::LuaState* __this, app::String* chunk, app::String* chunkName, MethodInfo* method);
+		static void LuaState_LuaLoadBuffer_Hook(app::LuaState* __this, app::Byte__Array* buffer, app::String* chunkName, MethodInfo* method);
+		static int32_t LuaStatePtr_LuaLoadBuffer_Hook(app::LuaStatePtr* __this, app::Byte__Array* buff, int32_t size, app::String* name, MethodInfo* method);
+		static app::Object* LuaState_LuaLoadBuffer_1_Hook(app::LuaState* __this, app::Byte__Array* buffer, app::String* chunkName, MethodInfo* method);
 	};
 }

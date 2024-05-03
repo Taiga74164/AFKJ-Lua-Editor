@@ -3144,6 +3144,85 @@ namespace app
 		struct LuaFunction__Fields fields;
 	};
 
+	struct __declspec(align(8)) LuaStatePtr__Fields
+	{
+		void* L;
+	};
+
+	struct LuaStatePtr
+	{
+		struct LuaStatePtr__Class* klass;
+		MonitorData* monitor;
+		struct LuaStatePtr__Fields fields;
+	};
+
+	struct LuaState__Fields
+	{
+		struct LuaStatePtr__Fields _;
+		struct ObjectTranslator* translator;
+		int32_t _ArrayMetatable_k__BackingField;
+		int32_t _DelegateMetatable_k__BackingField;
+		int32_t _TypeMetatable_k__BackingField;
+		int32_t _IterMetatable_k__BackingField;
+		int32_t _EventMetatable_k__BackingField;
+		int32_t _PackBounds_k__BackingField;
+		int32_t _UnpackBounds_k__BackingField;
+		int32_t _PackRay_k__BackingField;
+		int32_t _UnpackRay_k__BackingField;
+		int32_t _PackRaycastHit_k__BackingField;
+		int32_t _PackTouch_k__BackingField;
+		int32_t _PackPlane_k__BackingField;
+		int32_t _UnpackPlane_k__BackingField;
+		int32_t _PackSpriteState_k__BackingField;
+		int32_t _UnPackSpriteState_k__BackingField;
+		int32_t _PackNavigation_k__BackingField;
+		int32_t _UnPackNavigation_k__BackingField;
+		int32_t _PackColorBlock_k__BackingField;
+		int32_t _UnPackColorBlock_k__BackingField;
+		int32_t _PackCharacterInfo_k__BackingField;
+		int32_t _UnPackCharacterInfo_k__BackingField;
+		int32_t _PackBoundsInt_k__BackingField;
+		int32_t _UnPackBoundsInt_k__BackingField;
+		struct Action* OnDestroy;
+		struct Dictionary_2_System_String_System_WeakReference_* funcMap;
+		struct Dictionary_2_System_Int32_System_WeakReference_* funcRefMap;
+		struct Dictionary_2_System_Int64_System_WeakReference_* delegateMap;
+		struct List_1_LuaInterface_GCRef_* gcList;
+		struct List_1_LuaInterface_LuaDelegate_* subRefList;
+		struct Dictionary_2_System_Type_System_Int32_* metaMap;
+		struct Dictionary_2_System_Type_LuaInterface_LuaCSFunction_* preLoadMap;
+		struct Dictionary_2_System_Int32_System_Type_* typeMap;
+		struct HashSet_1_System_Type_* genericSet;
+		struct HashSet_1_System_String_* moduleSet;
+		int32_t beginCount;
+		bool beLogGC;
+		bool bInjectionInited;
+		struct List_1_LuaInterface_GCRef_* removeList;
+		struct Type* TypeOfObject;
+	};
+
+	struct LuaState
+	{
+		struct LuaState__Class* klass;
+		MonitorData* monitor;
+		struct LuaState__Fields fields;
+	};
+
+	struct LuaLooper__Fields
+	{
+		struct MonoBehaviour__Fields _;
+		struct LuaState* luaState;
+		struct Stopwatch* updateStopwatch;
+		struct Stopwatch* lateUpdatestopwatch;
+	};
+
+	struct LuaLooper
+	{
+		struct LuaLooper__Class* klass;
+		MonitorData* monitor;
+		struct LuaLooper__Fields fields;
+	};
+
 	struct LuaClient__Fields
 	{
 		struct MonoBehaviour__Fields _;
